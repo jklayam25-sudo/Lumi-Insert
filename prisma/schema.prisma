@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id
+  createdAt DateTime  @default(now())
+  username  String    @unique
+  password  String   
+  fullname  String
+  isActive  Boolean   @default(true)
+  role      Role      @default(ADMIN)
+  tokens    AuthToken []
+}
+
+model AuthToken {
+  token     String  @id
+  owner     User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   String
+  expiredAt DateTime
+}
+
+model Product {
+  product_id          String    @id
+  product_name        String    @unique
+  product_quantity    Int       @default(0)
+  product_price       Int       @default(0)
+  product_last_stock  DateTime  @updatedAt
+
+  transaction_items   TransactionItems[]
+}
+
+model Customer {
+  customer_id       String    @id
+  customer_name     String    @unique 
+  customer_contact  String       
+  customer_since    DateTime  @default(now())
+  customer_address  String  
+  customer_lat      Float?
+  customer_lng      Float?
+  customer_status   CustStatus @default(ACTIVE)
+  
+  transaction   Transaction[]
+}
+
+model Transaction {
+  transaction_id            String      @id
+  transaction_customer      Customer    @relation(fields: [transaction_customer_name], references: [customer_name], onDelete: SetDefault)
+  transaction_customer_name String      @default("PUBLIC")
+  transaction_date          DateTime    @updatedAt
+  transaction_status        TrxStatus   @default(UNPAID)
+  transaction_deliver       TrxDelivery @default(PENDING)   
+  transaction_handler       String    
+  transaction_total         Int         @default(0)
+  
+  transaction_items     TransactionItems[]
+}
+
+model TransactionItems {
+  refTransaction_id String      @id
+  transaction       Transaction  @relation(fields: [transaction_id], references: [transaction_id], onDelete: Cascade)
+  transaction_id    String
+  product           Product?     @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
+  product_id        String
+  product_name      String    
+  product_quantity  Int
+  product_price     Int       
+}
+
+
+ 
+enum Role {
+  ADMIN
+  OWNER
+}
+
+enum TrxDelivery {
+  PENDING
+  READY
+  FINISH
+  CANCELLED
+}
+
+enum TrxStatus {
+  UNPAID
+  PAID
+  CANCELLED
+}
+
+enum CustStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+
