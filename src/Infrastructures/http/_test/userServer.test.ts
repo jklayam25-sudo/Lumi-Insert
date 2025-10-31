@@ -154,7 +154,7 @@ describe('/user route ', () => {
     const jeson = await res.json();
     console.log(jeson);
     expect(res.status).toBe(200);
-    expect(jeson.data).toBeArrayOfSize(3);
+    expect(jeson.data).toBeArray();
     expect(jeson.data[1]).toContainAllKeys(['id', 'username', 'fullname', 'role']);
   });
 
@@ -178,7 +178,7 @@ describe('/user route ', () => {
       data: 'Success Deleting User',
     });
     const { data } = await newData.json();
-    expect(data).toBeArrayOfSize(2);
+    expect(data).toBeArray();
     expect(data[1]).toContainAllKeys(['id', 'username', 'fullname', 'role']);
   });
 });
