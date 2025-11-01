@@ -1,6 +1,6 @@
 import { PoolType } from '../database/pool';
 import ProductRepository from '../../model/products/ProductRepository';
-import { ProductRegisterPayload } from '../../model/products/type/productType';
+import { ProductRegisterPayload, ProductStockResponse } from '../../model/products/type/productType';
 import InvariantError from '../../Commons/errorHandling/InvariantError';
 import ProductRegister from '../../model/products/entities/ProductRegister';
 import { DetailItems } from '../../model/transactions/type/TransactionType';
@@ -145,6 +145,20 @@ class ProductRepositoryPSQL extends ProductRepository {
           throw new InvariantError('Stock is unavailable');
       }
     });
+  }
+
+  async getProductStock(product_id: string): Promise<ProductStockResponse> {
+    const result = await this.pool.product.findUnique({
+      where: {
+        product_id,
+      },
+      select: {
+        product_quantity: true,
+      },
+    });
+
+    if (!result) throw new InvariantError('Product id is not found!');
+    return result;
   }
 }
 

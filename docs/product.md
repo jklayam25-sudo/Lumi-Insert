@@ -35,6 +35,29 @@ Response Failed :
   "success" : "false"
 }
 ```
+## Get Product Stock
+
+Endpoint : GET /products/{product_id}/stock
+
+Response Success (200):
+
+```json
+{
+  "data" : {
+    "product_quantity" : number,
+  }
+  
+}
+```
+
+Response Failed :
+
+```json
+{
+  "error" : Possible Message,
+  "success" : "false"
+}
+```
 
 ## Get Products by matching keyword
 

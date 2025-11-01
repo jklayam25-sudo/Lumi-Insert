@@ -9,3 +9,7 @@ export type ProductRegisteredPayload = {
   product_id: string;
   product_name: string;
 };
+
+export type ProductStockResponse = {
+  product_quantity: number;
+};

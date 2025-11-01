@@ -32,6 +32,7 @@ import CustomerRepositoryPSQL from './repository/CustomerRepositoryPSQL';
 import UpdateCustomerUseCase from '../application/use_case/Customer/UpdateCustomerUseCase';
 import GetCustomerUseCase from '../application/use_case/Customer/GetCustomerUseCase';
 import GetCustomerNameUseCase from '../application/use_case/Customer/GetCustomerNameUseCase';
+import GetProductStockUseCase from '../application/use_case/Product/GetProductStockUseCase';
 
 const userRepository = new UserRepositoryPSQL(pool);
 const passwordHash = new PasswordHasher();
@@ -69,6 +70,7 @@ export const container = {
   updateProductUseCase: new UpdateProductUseCase({ productRepository }),
   deleteProductUseCase: new DeleteProductUseCase({ productRepository }),
   searchLimiter: await SuperLimitter(), //Middleware used to limitting request by the cookies
+  getProductStockUseCase: new GetProductStockUseCase({ productRepository }),
 
   addTransactionUseCase: new AddTransactionUseCase({ transactionRepository }),
   adminAuth: AdminAuth({ authenticationTokenManager }),
