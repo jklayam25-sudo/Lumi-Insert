@@ -8,6 +8,7 @@ const productHandler = ({
   updateProductUseCase,
   deleteProductUseCase,
   getProductByParamsUseCase,
+  getProductStockUseCase
 }: containerPayload) => ({
   addProduct: async (c: Context) => {
     const status = await addProductUseCase.execute(await c.req.json());
@@ -34,6 +35,11 @@ const productHandler = ({
     const status = await getProductByParamsUseCase.execute(product_name);
     return c.json({ data: status }, 200);
   },
+  getProductStock: async (c: Context) => {
+    const { product_id } = c.req.param();
+    const status = await getProductStockUseCase.execute(product_id);
+    return c.json({ data: status }, 200);
+  }
 });
 
 export default productHandler;

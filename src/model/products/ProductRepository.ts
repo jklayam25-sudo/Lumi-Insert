@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DetailItems } from '../transactions/type/TransactionType';
 import { ItemRegisterPayload } from '../transitems/type/ItemType';
-import { ProductRegisterPayload } from './type/productType';
+import { ProductRegisterPayload, ProductStockResponse } from './type/productType';
 
 export default class ProductRepository {
   async addProduct(ProductRegister: ProductRegisterPayload): Promise<ProductRegisterPayload> {
@@ -44,6 +44,10 @@ export default class ProductRepository {
   }
 
   async checkStockAvailability(transaction_items: ItemRegisterPayload[]): Promise<void> {
+    throw new Error('PRODUCT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async getProductStock(product_id: string): Promise<ProductStockResponse> {
     throw new Error('PRODUCT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }

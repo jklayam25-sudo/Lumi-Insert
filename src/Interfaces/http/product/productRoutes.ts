@@ -8,6 +8,7 @@ const productRoutes = (container: containerPayload) => {
 
   user.post('/', container.adminAuth, container.superAdminAuth, handler.addProduct);
   user.get('/', handler.getProduct);
+  user.get('/:product_id/stock', container.adminAuth, container.searchLimiter, handler.getProductStock);
   user.get('/search', container.adminAuth, container.searchLimiter, handler.getProductByParams);
   user.put('/:product_id', container.adminAuth, container.superAdminAuth, handler.updateProduct);
   user.delete('/:product_id', container.adminAuth, container.superAdminAuth, handler.deleteProduct);
