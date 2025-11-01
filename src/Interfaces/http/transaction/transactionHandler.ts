@@ -16,6 +16,7 @@ const transactionHandler = ({
       transaction_customer_name,
       transaction_handler: c.get('identity').username,
     };
+    console.table(payload);
     const transaction_id = await addTransactionUseCase.execute(payload);
     return c.json({ data: { transaction_id } }, 201);
   },

@@ -6,7 +6,7 @@ import { getCookie } from 'hono/cookie';
 export const SuperLimitter = async () => {
   return rateLimiter({
     windowMs: 1 * 60 * 1000,
-    limit: 1,
+    limit: 100,
     standardHeaders: 'draft-6',
     keyGenerator: (c) => {
       console.log('Cookie kita:', getCookie(c, 'LUMIALBCORS'));

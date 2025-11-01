@@ -18,10 +18,19 @@ const createServer = async (container: containerPayload) => {
   app.route('/transactions', transactionRoutes(container));
   app.route('/customers', customerRoutes(container));
 
-  // Bun.serve({
-  //   fetch: app.fetch,
-  //   port: 3823,
-  // });
+  const server = Bun.serve({
+    fetch: app.fetch,
+    port: 3823,
+  });
+
+  console.log('SERVER_CONNECTED', server);
+
+  app.notFound((c) => {
+    return c.json({
+      error: `${c.req.url} ENDPOINT not valid, try to check docs!`,
+      success: 'false'
+    }, 404);
+  });
 
   app.onError(async (err, c) => {
     if (err instanceof InvariantError || err instanceof AuthenticationError) {

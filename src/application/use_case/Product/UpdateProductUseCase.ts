@@ -16,10 +16,19 @@ export default class UpdateProductUseCase {
   ): Promise<ProductRegisterPayload> {
     const registerProduct = new ProductRegister(useCasePayload);
     await this._productRepository.getProductById(useCaseParams);
-    await this._productRepository.duplicateChecker(
-      registerProduct.product_id,
-      registerProduct.product_name
-    );
+
+    if(useCaseParams !== registerProduct.product_id){
+      await this._productRepository.duplicateChecker(
+        registerProduct.product_id,
+        registerProduct.product_name
+      );
+    } else {
+      await this._productRepository.duplicateChecker(
+        'RANDOM',
+        registerProduct.product_name
+      );
+    }
+    
 
     const { product_id, product_name, product_price, product_quantity } =
       await this._productRepository.updateProduct(useCaseParams, registerProduct);
