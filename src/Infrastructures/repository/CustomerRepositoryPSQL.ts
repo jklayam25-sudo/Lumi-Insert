@@ -66,10 +66,15 @@ class CustomerRepositoryPSQL extends CustomerRepository {
     }
   }
 
-  async getAllCustomer(type: string): Promise<CustomerRegisterResponse[]> {
+  async getAllCustomer(customer_id: string | undefined, limit: number, type: string): Promise<CustomerRegisterResponse[]> {
     const status = type === 'suspended' ? 'SUSPENDED' : 'ACTIVE';
     try {
       const result = await this.pool.customer.findMany({
+        take: limit,
+        ...(customer_id && {
+          cursor: { customer_id },
+          skip: 1,
+        }),
         where: {
           customer_status: status,
         },
@@ -119,6 +124,18 @@ class CustomerRepositoryPSQL extends CustomerRepository {
       throw error;
     }
   }
+
+  async getCustomerRows(type: string): Promise<number> {
+    const status = type === 'suspended' ? 'SUSPENDED' : 'ACTIVE';
+    const rows = await this.pool.customer.count({
+      where: {
+        customer_status: status
+      }
+    });
+
+    return rows;
+  }
+
 }
 
 export default CustomerRepositoryPSQL;

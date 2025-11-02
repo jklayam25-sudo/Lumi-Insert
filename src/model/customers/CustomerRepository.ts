@@ -19,7 +19,7 @@ export default class CustomerRepository {
     throw new Error('CUST_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getAllCustomer(type: string): Promise<CustomerRegisterResponse[]> {
+  async getAllCustomer(customer_id: string | undefined, limit: number, type: string): Promise<CustomerRegisterResponse[]> {
     throw new Error('CUST_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
@@ -32,6 +32,10 @@ export default class CustomerRepository {
   }
 
   async customerValidChecker(customer_id: string): Promise<void> {
+    throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async getCustomerRows( type: string): Promise<number> {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }

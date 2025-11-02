@@ -2,28 +2,31 @@
 
 ## Get All Active Customer
 
-Endpoint : GET /customers
+Endpoint : GET /customers?last={customer_id}&limit={limit}
 
 Response Success (200):
 
 ```json
 {
-  "data" : [
-    {
-      "customer_id" : string,
-      "customer_name" : string,
-      "customer_contact" : string,
-      "customer_address" : string,
-      "customer_status" : string
-    },
-    {
-      "customer_id" : string,
-      "customer_name" : string,
-      "customer_contact" : string,
-      "customer_address" : string,
-      "customer_status" : string
-    },
-  ]
+  "data" : {
+    "customer_data": [
+      {
+        "customer_id" : string,
+        "customer_name" : string,
+        "customer_contact" : string,
+        "customer_address" : string,
+        "customer_status" : string
+      },
+      {
+        "customer_id" : string,
+        "customer_name" : string,
+        "customer_contact" : string,
+        "customer_address" : string,
+        "customer_status" : string
+      },
+    ],
+    "total_rows": number
+  } 
 }
 ```
 
@@ -38,28 +41,31 @@ Response Failed (Client):
 
 ## Get All Inactive Customer
 
-Endpoint : GET /customers/inactive
+Endpoint : GET /customers/inactive?last={customer_id}&limit={limit}
 
 Response Success (200):
 
 ```json
 {
-  "data" : [
-    {
-      "customer_id" : string,
-      "customer_name" : string,
-      "customer_contact" : string,
-      "customer_address" : string,
-      "customer_status" : string
-    },
-    {
-      "customer_id" : string,
-      "customer_name" : string,
-      "customer_contact" : string,
-      "customer_address" : string,
-      "customer_status" : string
-    },
-  ]
+  "data" : {
+    "customer_data": [
+      {
+        "customer_id" : string,
+        "customer_name" : string,
+        "customer_contact" : string,
+        "customer_address" : string,
+        "customer_status" : string
+      },
+      {
+        "customer_id" : string,
+        "customer_name" : string,
+        "customer_contact" : string,
+        "customer_address" : string,
+        "customer_status" : string
+      },
+    ],
+    "total_rows": number
+  } 
 }
 ```
 

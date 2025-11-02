@@ -1,5 +1,6 @@
 import { Context } from 'hono';
 import { containerPayload } from '../../../Infrastructures/container';
+import InvariantError from '../../../Commons/errorHandling/InvariantError';
 
 const CustomerHandler = ({
   addCustomerUseCase,
@@ -17,12 +18,22 @@ const CustomerHandler = ({
     return c.json({ data: status }, 200);
   },
   getActiveCustomer: async (c: Context) => {
-    const result = await getCustomerUseCase.execute('');
-    return c.json({ data: result }, 200);
+    const cursor = c.req.query('last');
+    const limit = Number(c.req.query('limit') ?? 5);
+    if(cursor){
+      const status = await getCustomerUseCase.execute(cursor === 'first'? undefined: cursor, limit, '');
+      return c.json({ data: status }, 200); 
+    }
+    throw new InvariantError('Bad query: ?last={customer_id} is missing!');
   },
   getSuspendedCustomer: async (c: Context) => {
-    const result = await getCustomerUseCase.execute('suspended');
-    return c.json({ data: result }, 200);
+    const cursor = c.req.query('last');
+    const limit = Number(c.req.query('limit') ?? 5);
+    if(cursor){
+      const status = await getCustomerUseCase.execute(cursor === 'first'? undefined: cursor, limit, 'suspended');
+      return c.json({ data: status }, 200); 
+    }
+    throw new InvariantError('Bad query: ?last={customer_id} is missing!');
   },
   getNameByQuery: async (c: Context) => {
     const query = c.req.query('name');

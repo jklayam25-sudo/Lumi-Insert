@@ -38,3 +38,8 @@ export type CustomerDetailResponse = {
   customer_lng: number | null;
   transaction: TransactionRegisteredPayload[];
 };
+
+export type GetCustomerResponse = { 
+  customer_data: CustomerRegisterResponse[],
+  total_rows: number,
+}
