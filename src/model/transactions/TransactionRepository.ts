@@ -10,9 +10,14 @@ export default class TransactionRepository {
     throw new Error('TRX_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getAllTransaction(): Promise<TransactionRegisteredPayload[]> {
+  async getAllTransaction(id: string | undefined, limit: number): Promise<TransactionRegisteredPayload[]> {
     throw new Error('TRX_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
+
+  async getTotalRows(): Promise<number> {
+    throw new Error('TRX_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
 
   async getTransactionById(transaction_id: string): Promise<DetailTransaction> {
     throw new Error('TRX_REPOSITORY.METHOD_NOT_IMPLEMENTED');

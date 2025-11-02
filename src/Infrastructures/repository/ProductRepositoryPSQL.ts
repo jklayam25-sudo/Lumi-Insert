@@ -35,7 +35,7 @@ class ProductRepositoryPSQL extends ProductRepository {
         product_price: true,
       },
       orderBy: {
-        product_last_stock: "asc"
+        product_last_stock: "desc"
       }
     });
     return result;

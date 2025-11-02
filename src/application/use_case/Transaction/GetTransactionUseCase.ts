@@ -1,6 +1,6 @@
 import { TransactionDependencies } from '../../../Infrastructures/type/dependenciesType';
 import TransactionRepository from '../../../model/transactions/TransactionRepository';
-import { TransactionRegisteredPayload } from '../../../model/transactions/type/TransactionType';
+import { GetTransactionResponse } from '../../../model/transactions/type/TransactionType';
 
 export default class GetTransactionUseCase {
   private _transactionRepository: TransactionRepository;
@@ -9,9 +9,15 @@ export default class GetTransactionUseCase {
     this._transactionRepository = transactionRepository;
   }
 
-  async execute(): Promise<TransactionRegisteredPayload[]> {
-    const registeredTransaction = await this._transactionRepository.getAllTransaction();
+  async execute(id: string | undefined, limit: number): Promise<GetTransactionResponse> {
+    const registeredTransaction = await this._transactionRepository.getAllTransaction(id, limit);
+    const totalRows = await this._transactionRepository.getTotalRows();
 
-    return registeredTransaction;
+    const toResponse = {
+      transaction_data: registeredTransaction,
+      total_rows: totalRows
+    };
+
+    return toResponse;
   }
 }

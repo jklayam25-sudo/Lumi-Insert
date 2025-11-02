@@ -26,9 +26,23 @@ class TransactionRepositoryPSQL extends TransactionRepository {
     return result.transaction_id;
   }
 
-  async getAllTransaction(): Promise<TransactionRegisteredPayload[]> {
-    const result = await this.pool.transaction.findMany({});
+  async getAllTransaction(id: string, limit: number): Promise<TransactionRegisteredPayload[]> {
+    const result = await this.pool.transaction.findMany({
+      take: limit,
+      ...(id && {
+        cursor: { transaction_id: id },
+        skip: 1,
+      }),
+      orderBy: {
+        transaction_date: "desc"
+      }
+    });
 
+    return result;
+  }
+
+  async getTotalRows(): Promise<number> {
+    const result = await this.pool.transaction.count({});
     return result;
   }
 

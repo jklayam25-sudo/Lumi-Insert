@@ -1,5 +1,6 @@
 import { Context } from 'hono';
 import { containerPayload } from '../../../Infrastructures/container';
+import InvariantError from '../../../Commons/errorHandling/InvariantError';
 
 const transactionHandler = ({
   addTransactionUseCase,
@@ -16,14 +17,18 @@ const transactionHandler = ({
       transaction_customer_name,
       transaction_handler: c.get('identity').username,
     };
-    console.table(payload);
     const transaction_id = await addTransactionUseCase.execute(payload);
     return c.json({ data: { transaction_id } }, 201);
   },
 
   getTransaction: async (c: Context) => {
-    const result = await getTransactionUseCase.execute();
-    return c.json({ data: result }, 200);
+    const cursor = c.req.query('last');
+    const limit = Number(c.req.query('limit') ?? 5);
+    if(cursor){
+      const result = await getTransactionUseCase.execute(cursor === 'first'? undefined: cursor, limit);
+      return c.json({ data: result }, 200); 
+    }
+    throw new InvariantError('Bad query: ?last={transaction_id} is missing!');
   },
 
   getDetailTransaction: async (c: Context) => {

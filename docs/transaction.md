@@ -4,30 +4,33 @@
 
 ## Get All Transactions
 
-Endpoint : GET /transactions
+Endpoint : GET /transactions?last={id or "first"}&limit={length of row}
 
 Response Success (200):
 
 ```json
 {
-  "data" : [
-    {
-      "transaction_id" : string,
-      "transaction_customer" : string,
-      "transaction_date" : string,
-      "transaction_status" : string,
-      "transaction_deliver" : string,
-      "transaction_handler" : string,
-    },
-    {
-      "transaction_id" : string,
-      "transaction_customer" : string,
-      "transaction_date" : string,
-      "transaction_status" : string,
-      "transaction_deliver" : string,
-      "transaction_handler" : string,
-    }, ...
-  ]
+  "data" : {
+    "transaction_data" : [
+      {
+        "transaction_id" : string,
+        "transaction_customer" : string,
+        "transaction_date" : string,
+        "transaction_status" : string,
+        "transaction_deliver" : string,
+        "transaction_handler" : string,
+      },
+      {
+        "transaction_id" : string,
+        "transaction_customer" : string,
+        "transaction_date" : string,
+        "transaction_status" : string,
+        "transaction_deliver" : string,
+        "transaction_handler" : string,
+      }, ...
+    ],
+    "total_rows": number
+  }
 }
 ```
 

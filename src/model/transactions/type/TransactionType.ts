@@ -24,3 +24,8 @@ export type DetailItems = {
   product_quantity: number;
   product_price: number;
 };
+
+export type GetTransactionResponse = {
+  transaction_data: TransactionRegisteredPayload[];
+  total_rows: number;
+}
