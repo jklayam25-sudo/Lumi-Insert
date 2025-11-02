@@ -16,8 +16,13 @@ const productHandler = ({
   },
 
   getProduct: async (c: Context) => {
-    const status = await getProductUseCase.execute();
-    return c.json({ data: status }, 200);
+    const cursor = c.req.query('last');
+    const limit = Number(c.req.query('limit') ?? 5);
+    if(cursor){
+      const status = await getProductUseCase.execute(cursor === 'first'? undefined: cursor, limit);
+      return c.json({ data: status }, 200); 
+    }
+    throw new InvariantError('Bad query: ?last={product_id} is missing!');
   },
   updateProduct: async (c: Context) => {
     const { product_id } = c.req.param();

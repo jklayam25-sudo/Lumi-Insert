@@ -13,3 +13,9 @@ export type ProductRegisteredPayload = {
 export type ProductStockResponse = {
   product_quantity: number;
 };
+
+
+export type GetProductResponse = {
+  product_data: ProductRegisterPayload[];
+  total_rows: number;
+}

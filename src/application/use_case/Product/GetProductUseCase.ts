@@ -1,6 +1,6 @@
 import { ProductDependencies } from '../../../Infrastructures/type/dependenciesType';
 import ProductRepository from '../../../model/products/ProductRepository';
-import { ProductRegisterPayload } from '../../../model/products/type/productType';
+import { GetProductResponse } from '../../../model/products/type/productType';
 
 export default class GetProductUseCase {
   private _productRepository: ProductRepository;
@@ -9,9 +9,13 @@ export default class GetProductUseCase {
     this._productRepository = productRepository;
   }
 
-  async execute(): Promise<ProductRegisterPayload[]> {
-    const registeredProduct = await this._productRepository.getAllProduct();
-
-    return registeredProduct;
+  async execute(id: string | undefined, limit: number): Promise<GetProductResponse> {
+    const registeredProduct = await this._productRepository.getAllProduct(id, limit);
+    const productRows = await this._productRepository.getProductRows();
+    const response = {
+      product_data: registeredProduct,
+      total_rows: productRows
+    };
+    return response;
   }
 }

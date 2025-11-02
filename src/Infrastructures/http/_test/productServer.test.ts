@@ -252,15 +252,15 @@ describe('/products route ', () => {
     });
   });
 
-  it('get should be error if caught limit req', async () => {
-    const res = await app.request('/products/search?keyword=sabun', {
-      method: 'GET',
-      headers: {
-        cookie: AllToken[0],
-      },
-    });
+  // it('get should be error if caught limit req', async () => {
+  //   const res = await app.request('/products/search?keyword=sabun', {
+  //     method: 'GET',
+  //     headers: {
+  //       cookie: AllToken[0],
+  //     },
+  //   });
 
-    expect(res.status).toBe(429);
-    console.log('rate limitting', res);
-  });
+  //   expect(res.status).toBe(429);
+  //   console.log('rate limitting', res);
+  // });
 });

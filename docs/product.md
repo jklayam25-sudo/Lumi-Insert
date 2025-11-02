@@ -2,28 +2,32 @@
 
 ### Use case for storage DB, check transactions.md for transaction purpose!
 
-## Get All Products
+## Get All Products Pagination
 
-Endpoint : GET /products
+Endpoint : GET /products?last={id or "first"}&limit={length of row}
 
 Response Success (200):
 
 ```json
 {
-  "data" : [
-    {
-      "product_id" : string,
-      "product_name" : string,
-      "product_quantity" : number,
-      "product_price" : number,
-    },
-    {
-      "product_id" : string,
-      "product_name" : string,
-      "product_quantity" : number,
-      "product_price" : number,
-    }, ...
-  ]
+  "data" : {
+    "product_data": [
+      {
+        "product_id" : string,
+        "product_name" : string,
+        "product_quantity" : number,
+        "product_price" : number,
+      },
+      {
+        "product_id" : string,
+        "product_name" : string,
+        "product_quantity" : number,
+        "product_price" : number,
+      }, ...length of row
+    ],
+    "total_rows" : number
+  }
+  
 }
 ```
 

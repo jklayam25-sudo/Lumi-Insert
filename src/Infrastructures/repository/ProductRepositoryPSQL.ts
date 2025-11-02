@@ -21,14 +21,22 @@ class ProductRepositoryPSQL extends ProductRepository {
     return returned;
   }
 
-  async getAllProduct(): Promise<ProductRegisterPayload[]> {
+  async getAllProduct(product_id: string | undefined, limit: number): Promise<ProductRegisterPayload[]> {
     const result = await this.pool.product.findMany({
+      take: limit,
+      ...(product_id && {
+        cursor: { product_id },
+        skip: 1,
+      }),
       select: {
         product_id: true,
         product_name: true,
         product_quantity: true,
         product_price: true,
       },
+      orderBy: {
+        product_last_stock: "asc"
+      }
     });
     return result;
   }
@@ -158,6 +166,11 @@ class ProductRepositoryPSQL extends ProductRepository {
     });
 
     if (!result) throw new InvariantError('Product id is not found!');
+    return result;
+  }
+
+  async getProductRows(): Promise<number> {
+    const result = await this.pool.product.count();
     return result;
   }
 }

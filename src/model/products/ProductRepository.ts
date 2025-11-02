@@ -8,7 +8,7 @@ export default class ProductRepository {
     throw new Error('PRODUCT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getAllProduct(): Promise<ProductRegisterPayload[]> {
+  async getAllProduct(product_id: string | undefined, limit: number): Promise<ProductRegisterPayload[]> {
     throw new Error('PRODUCT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
@@ -48,6 +48,10 @@ export default class ProductRepository {
   }
 
   async getProductStock(product_id: string): Promise<ProductStockResponse> {
+    throw new Error('PRODUCT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async getProductRows(): Promise<number> {
     throw new Error('PRODUCT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }
