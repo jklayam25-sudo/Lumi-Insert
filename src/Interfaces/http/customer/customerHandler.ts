@@ -7,6 +7,7 @@ const CustomerHandler = ({
   updateCustomerUseCase,
   getCustomerUseCase,
   getCustomerNameUseCase,
+  getDetailCustomerUseCase
 }: containerPayload) => ({
   createCustomer: async (c: Context) => {
     const status = await addCustomerUseCase.execute(await c.req.json());
@@ -40,6 +41,13 @@ const CustomerHandler = ({
     if (!query) return c.json({ data: [] }, 200);
     const result = await getCustomerNameUseCase.execute(query);
     return c.json({ data: result }, 200);
+  },
+  getCustomerDetail: async (c: Context) => {
+    const { id } = c.req.param();
+    if(!id) throw new InvariantError('Bad params: /customer/{id}/detail is missing!');
+    
+    const status = await getDetailCustomerUseCase.execute(id);
+    return c.json({ data: status }, 200); 
   },
 });
 

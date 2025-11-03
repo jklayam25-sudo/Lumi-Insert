@@ -105,6 +105,46 @@ Response Failed (Client):
   "success" : "false"
 }
 ```
+## Get Customer Detail
+
+Endpoint : GET /customers/{cust_id}/detail
+
+Response Success (200):
+
+```json
+{
+  "data" : {
+    "customer_id" : string,
+    "customer_name" : string,
+    "customer_contact" : string,
+    "customer_since" : string,
+    "customer_address" : string,
+    "customer_status" : string,
+    "customer_lat" : number | null,
+    "customer_lng" : number | null,
+    "transaction" : [
+      {
+      "transaction_id" : string,
+      "transaction_customer" : string,
+      "transaction_date" : string,
+      "transaction_status" : string,
+      "transaction_deliver" : string,
+      "transaction_handler" : string,
+      "transaction_total" : number
+      },...
+    ]
+  }
+}
+```
+
+Response Failed (Client):
+
+```json
+{
+  "error" : Possible Message,
+  "success" : "false"
+}
+```
 
 ## Register Customer
 

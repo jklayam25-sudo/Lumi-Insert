@@ -33,6 +33,7 @@ import UpdateCustomerUseCase from '../application/use_case/Customer/UpdateCustom
 import GetCustomerUseCase from '../application/use_case/Customer/GetCustomerUseCase';
 import GetCustomerNameUseCase from '../application/use_case/Customer/GetCustomerNameUseCase';
 import GetProductStockUseCase from '../application/use_case/Product/GetProductStockUseCase';
+import GetDetailCustomerUseCase from '../application/use_case/Customer/GetDetailCustomerUseCase';
 
 const userRepository = new UserRepositoryPSQL(pool);
 const passwordHash = new PasswordHasher();
@@ -102,6 +103,7 @@ export const container = {
   updateCustomerUseCase: new UpdateCustomerUseCase({ customerRepository }),
   getCustomerUseCase: new GetCustomerUseCase({ customerRepository }),
   getCustomerNameUseCase: new GetCustomerNameUseCase({ customerRepository }),
+  getDetailCustomerUseCase: new GetDetailCustomerUseCase({ customerRepository }),
 };
 
 export type containerPayload = typeof container;

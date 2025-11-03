@@ -14,7 +14,7 @@ Response Success (200):
     "transaction_data" : [
       {
         "transaction_id" : string,
-        "transaction_customer" : string,
+        "transaction_customer_name" : string,
         "transaction_date" : string,
         "transaction_status" : string,
         "transaction_deliver" : string,
@@ -22,7 +22,7 @@ Response Success (200):
       },
       {
         "transaction_id" : string,
-        "transaction_customer" : string,
+        "transaction_customer_name" : string,
         "transaction_date" : string,
         "transaction_status" : string,
         "transaction_deliver" : string,
@@ -54,7 +54,7 @@ Response Success (200):
   "data" :
     {
       "transaction_id" : string,
-      "transaction_customer" : string,
+      "transaction_customer_name" : string,
       "transaction_date" : string,
       "transaction_status" : string,
       "transaction_deliver" : string,
@@ -124,7 +124,7 @@ Response Success (200):
 {
   "data" : {
       "transaction_id" : string,
-      "transaction_customer" : string,
+      "transaction_customer_name" : string,
       "transaction_date" : string,
       "transaction_status" : string,
       "transaction_deliver" : string,

@@ -9,6 +9,7 @@ const customerRoutes = (container: containerPayload) => {
   user.post('/', container.adminAuth, handler.createCustomer);
   user.put('/:id', container.adminAuth, handler.updateCustomer);
   user.get('/', container.adminAuth, handler.getActiveCustomer);
+  user.get('/:id/detail', container.adminAuth, handler.getCustomerDetail);
   user.get('/inactive', container.adminAuth, handler.getSuspendedCustomer);
   user.get('/search', container.adminAuth, handler.getNameByQuery);
   return user;

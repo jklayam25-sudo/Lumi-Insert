@@ -8,7 +8,7 @@ export default class GetDetailCustomerUseCase {
   constructor({ customerRepository }: CustomerDependencies) {
     this._customerRepository = customerRepository;
   }
-  // type came from params, params should be / or /suspended
+  
   async execute(useCaseParams: string): Promise<CustomerDetailResponse> {
     return this._customerRepository.getDetailCustomerById(useCaseParams);
   }
